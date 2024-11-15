@@ -226,6 +226,42 @@ Este seria el resultado final de como se implemento la vista con Material, utili
 ## Preguntas
 
 
+**1.- ¿Qué hace el método getUsers en este servicio?**
+R=Lo que realiza es una solicitud en formato HTTP GET para poder obtener datos desde la API externa y devolver los resultados.
+
+------------
+**2.- ¿Por qué es necesario importar HttpClientModule?**
+R=Este módulo ya no es necesario en angular 18, pero lo que hacia era realizar peticiones de GET, POST, PUT y DELETE y esto se vio remplazado por la importación de HttpCliente que hace lo mismo, pero adopta un enfoque mas moderno y uso solo de componentes.
+
+------------
+**3.- ¿Qué función cumple el método ngOnInit en el componente UserListComponent?**
+R=Esto sirve para realizar la carga inicial de datos al momento que se crea el componente.
+
+------------
+
+**4.-¿Para qué sirve el bucle *ngFor en Angular? En el ejemplo**
+R=Es el encargado de repetir las acciones en cada arreglo y crea una copia de ese bloque 
+
+------------
+**5. ¿Qué ventajas tiene el uso de servicios en Angular para el consumo de APIs?**
+- Nos permite reutilizar código
+- Código más sencillo
+- Facilita la implementación de pruebas
+- Mas fácil de mantener
+- Optimiza el rendimiento
+
+------------
+**6. ¿Por qué es importante separar la lógica de negocio de la lógica de presentación?**
+- Mejora el mantenimiento 
+- Escalabilidad
+
+------------
+**7 ¿Qué otros tipos de datos o APIs podrías integrar en un proyecto como este?**
+- Autentificación y automatización 
+- Permite tomar datos de terceros 
+- Implementar notificaciones
+- Almacenar datos
+- Datos en tiempo
 
 
 
