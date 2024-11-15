@@ -1,6 +1,6 @@
 # Como agregar una API a angular
 
-##1.-Creacion del Proyecto
+## 1.-Creacion del Proyecto
 
 Abrimos una terminal o consola y ejecutamos el siguiente comando para crear un nuevo
 proyecto en Angular:
@@ -24,7 +24,7 @@ Inicializaremos el servidor
 ng serve
 ```
 
-##2.-Crear el Servicio para Consumir la API
+## 2.-Crear el Servicio para Consumir la API
 
 Generaremos un servicio que se encargará de consumir la API. En la
 terminal, escribiremos:
