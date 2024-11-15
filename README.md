@@ -103,7 +103,8 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'password' , 'role', 'avatar']; // <- Aqui agregaremos lo que quieras sacar de tu API, asi que ve que es lo que te retorna tu API
+  displayedColumns: string[] = ['id', 'name', 'email', 'password' , 'role', 'avatar']; // <- Aqui agregaremos lo que quieras sacar de tu API,
+   //asi que ve que es lo que te retorna tu API
   dataSource = new MatTableDataSource<any>([]); // Inicializa con un arreglo vacío
 
   readonly paginator = viewChild.required(MatPaginator);
@@ -133,6 +134,85 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 }
 ```
+
+## 5.-Creación de la Vista para Mostrar los Datos en una Tabla
+
+Ingresaremos al archivo `src/app/components/user-list/user-list.component.html` y le faremos el siguiente formato este es la parte visible para el suario, en el archivo `.ts` solo se recuperaron los datos y agregamos los componentes de Material  para su psoteriro uso en el `.html` en el cual le vamos a dar una vista bonita dado que estos datos se encuentra en un arreglo y no en una tabla de la siguiente forma.
+
+```html
+<div class="container">
+  <mat-card class="user-card">
+    <!-- Encabezado del Card -->
+    <mat-toolbar color="primary">
+      <span class="toolbar-title">User List</span>
+    </mat-toolbar>
+
+    <!-- Input para el filtro -->
+    <div class="filter-container">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Filter</mat-label>
+        <input matInput (input)="applyFilter($event)" placeholder="Search Users" />
+      </mat-form-field>
+    </div>
+
+    <!-- Tabla de Usuarios -->
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 user-table">
+      <!-- Columna de ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+      </ng-container>
+
+      <!-- Columna de Nombre -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <!-- Columna de Email -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <!-- Columna de Contraseña -->
+      <ng-container matColumnDef="password">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Password</th>
+        <td mat-cell *matCellDef="let user"> {{ user.password }} </td>
+      </ng-container>
+
+      <!-- Columna de Rol -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+        <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+      </ng-container>
+
+      <!-- Columna de Avatar -->
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Avatar</th>
+        <td mat-cell *matCellDef="let user">{{ user.avatar }}</td>
+      </ng-container>
+
+      <!-- Filas y Encabezados -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- Paginador -->
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page"
+      showFirstLastButtons></mat-paginator>
+  </mat-card>
+</div>
+```
+
+## Integrar el Componente en la Aplicación
+Nos iremos al archivo  `src/app/app.component.ts` y agregaremos el componente para poderlo usar en el archivo `src/app/app.component.html` con el sigueinte formato 
+
+```html
+<app-user-list></app-user-list>
+```
+
+
 
 
 
