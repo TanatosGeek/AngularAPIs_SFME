@@ -71,7 +71,7 @@ export const appConfig: ApplicationConfig = {
   ]
 };
 ```
-##Crear el Componente de la Tabla de Usuarios
+##4.-Crear el Componente de la Tabla de Usuarios
 Para crear nuestro componente el cual nos servira para ver el contenido de nuestra API 
 ```bash
 ng generate component components/user-list
