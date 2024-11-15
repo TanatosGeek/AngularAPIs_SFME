@@ -22,7 +22,7 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'role'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'password' , 'role', 'avatar'];
   dataSource = new MatTableDataSource<any>([]); // Inicializa con un arreglo vacío
 
   readonly paginator = viewChild.required(MatPaginator);
