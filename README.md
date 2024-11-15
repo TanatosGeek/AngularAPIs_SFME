@@ -2,37 +2,38 @@
 
 Abrimos una terminal o consola y ejecutamos el siguiente comando para crear un nuevo
 proyecto en Angular:
-bash
-ng new nombreDelProyecto
 
+```bash
+ng new nombreDelProyecto
+```
 
 Entramos a la carpeta con el comando
-bash
+```bash
 cd nombreDelProyecto
-
+```
 Despues configuras las opciones del proyecto a tus necesidades desde colores, animaciones, renderizacion , etc. (Por lo general aceptas todo pero no esta de mas leer).
 
 Agregaremos Material Design a nuestro proyecto con el comando
-bash
+```bash
 ng add @angular/material
-
+```
 
 Inicializaremos el servidor
-bash
+```bash
 ng serve
-
+```
 
 ## 2.-Crear el Servicio para Consumir la API
 
 Generaremos un servicio que se encargará de consumir la API. En la
 terminal, escribiremos:
 
-bash
+```bash
 ng generate service services/user
-
+```
 Despues nos iremos al archivo src/app/services/user.service.ts para configurar el API que estaremos usando de la siguiente forma.
 
-typescript
+```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -48,13 +49,13 @@ export class UserService {
     return this.http.get<any[]>(this.apiUrl);
   }
 }
-
+```
 
 ## 3.-Configurar HttpClient
 
 Para poder realizar las consultas necesitaremos implementar HttpClient en el archivo src/app/app.config.ts el cual se configurara de la siguiente forma.
 
-typescript
+```typescript
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -71,17 +72,17 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync()
   ]
 };
-
+```
 ## 4.-Crear el Componente de la Tabla de Usuarios
 Para crear nuestro componente el cual nos servira para ver el contenido de nuestra API 
-bash
+```bash
 ng generate component components/user-list
-
+```
 
 Tras generar nuestro componente ingresaremos al archivo 
 src/app/components/user-list.component.ts al cual se le dara el sigiente formato
 
-typescript
+```typescript
 import { AfterViewInit, Component, OnInit, viewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -136,13 +137,13 @@ export class UserListComponent implements OnInit, AfterViewInit {
     }
   }
 }
-
+```
 
 ## 5.-Creación de la Vista para Mostrar los Datos en una Tabla
 
 Ingresaremos al archivo src/app/components/user-list/user-list.component.html y le faremos el siguiente formato este es la parte visible para el suario, en el archivo .ts solo se recuperaron los datos y agregamos los componentes de Material  para su psoteriro uso en el .html en el cual le vamos a dar una vista bonita dado que estos datos se encuentra en un arreglo y no en una tabla de la siguiente forma.
 
-html
+```html
 <div class="container">
   <mat-card class="user-card">
     <!-- Encabezado del Card -->
@@ -206,15 +207,15 @@ html
       showFirstLastButtons></mat-paginator>
   </mat-card>
 </div>
-
+```
 
 ## Integrar el Componente en la Aplicación
 Nos iremos al archivo  src/app/app.component.ts y agregaremos el componente para poderlo usar en el archivo src/app/app.component.html con el sigueinte formato 
 
-html
+```html
 <app-user-list></app-user-list>
 <router-outlet></router-outlet>
-
+```
 
 ## Resultados
 Este seria el resultado final de como se implemento la vista con Material, utilizando los componentes de paginacion y filtro
@@ -264,6 +265,9 @@ R=Es el encargado de repetir las acciones en cada arreglo y crea una copia de es
 
 
 
+
+
+Pagina para hacer mas facil el Redme.md:
 
 https://pandao.github.io/editor.md/en.html
 
