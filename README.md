@@ -1,6 +1,6 @@
 # Como agregar una API a angular
 
-## 1.-Creacion del Proyecto
+##1.-Creacion del Proyecto
 
 Abrimos una terminal o consola y ejecutamos el siguiente comando para crear un nuevo
 proyecto en Angular:
@@ -19,7 +19,12 @@ Agregaremos Material Design a nuestro proyecto con el comando
 ng add @angular/material
 ```
 
-## 2.-Crear el Servicio para Consumir la API
+Inicializaremos el servidor
+```bash
+ng serve
+```
+
+##2.-Crear el Servicio para Consumir la API
 
 Generaremos un servicio que se encargará de consumir la API. En la
 terminal, escribiremos:
@@ -210,7 +215,9 @@ Nos iremos al archivo  `src/app/app.component.ts` y agregaremos el componente pa
 
 ```html
 <app-user-list></app-user-list>
+<router-outlet></router-outlet>
 ```
+
 
 
 
