@@ -1,3 +1,78 @@
+
+# Como agregar una API a angular
+
+##1.-Creacion del Proyecto
+
+Abrimos una terminal o consola y ejecutamos el siguiente comando para crear un nuevo
+proyecto en Angular:
+```bash
+ng new nombreDelProyecto
+```
+Entramos a la carpeta con el comando
+
+```bash
+cd nombreDelProyecto
+```
+
+Configuras las opciones del proyecto a tus necesidades desde colores, animaciones, renderizacion , etc.
+
+##2.-Crear el Servicio para Consumir la API
+
+Generaremos un servicio que se encargará de consumir la API. En la
+terminal, escribiremos:
+
+```bash
+ng generate service services/user
+```
+Despues nos iremos al archivo `src/app/services/user.service.ts` para configurar el API que estaremos usando de la siguiente forma.
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+
+  private apiUrl = 'https://api.escuelajs.co/api/v1/users';  // <-Aqui va la url de tu API
+  constructor(private http: HttpClient) { }
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+}
+```
+Des pues nos iremos al archivo
+
+```typescript
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideClientHydration(),
+    provideHttpClient(withFetch()), //<- Aquí se añade provideHttpClient con withFetch()
+    provideAnimationsAsync()
+  ]
+};
+```
+##3.-
+
+
+
+
+
+
+
+
+
 # ProyectoEnAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
