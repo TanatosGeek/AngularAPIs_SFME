@@ -218,6 +218,9 @@ Nos iremos al archivo  `src/app/app.component.ts` y agregaremos el componente pa
 <router-outlet></router-outlet>
 ```
 
+## Resultados
+Este seria el resultado final de como se implemento la vista con Material 
+![image](https://github.com/user-attachments/assets/098e860f-d8c9-4e52-9381-7558036283f6)
 
 
 
