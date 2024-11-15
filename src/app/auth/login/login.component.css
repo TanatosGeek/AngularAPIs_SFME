@@ -1,0 +1,43 @@
+
+.example-card {
+  max-width: 500px;
+  max-height: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://universidadesdemexico.mx/logos/original/logo-instituto-tecnologico-de-oaxaca.webp');
+  background-size: cover;
+}
+.center-content {
+    margin-top: 90px;
+    text-align: -webkit-center;
+}
+.example-form {
+  min-width: 100px;
+  max-width: 200px;
+  width: 100%;
+}
+
+.example-full-width {
+    margin-top: 10px;
+  width: 100%;
+}
+.mat-button{
+    margin-top: 10px;
+  width: 100%;
+  color: white;
+  height: 40px;
+  background-color: #3F51B5;
+}
+
+.avatar {
+  width: 190px;
+  height: auto;
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 26vh;
+}
