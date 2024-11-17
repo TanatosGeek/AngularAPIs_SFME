@@ -258,7 +258,141 @@ mat-tab-group {
 }
 ```
 
-## 5.-Configuracion de rutas
+##5.- Generacion de un Dashboard
+Esta parte es a tu gusto en mi caso ocupe Material para desarrollarlo dado que es lo que estamos ocupando.
+
+
+```html
+<mat-toolbar>
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+  </button>
+  <span>Programación WE</span>
+  <div style="margin-left: 50px;" class="menuss">
+  <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item>Item 2</button>
+  </mat-menu>
+</div>
+<div style="margin-left: 50px;" class="menuss">
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  </div>
+  <div style="margin-left: 50px;" class="menuss">
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  </div>
+  <div style="margin-left: 50px;" class="menuss">
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav="matSidenav" mode="side">
+    <div class="avatar-container">
+      <img
+        class="avatar mat-elevation-z8"
+        src="https://universidadesdemexico.mx/logos/original/logo-instituto-tecnologico-de-oaxaca.webp"
+        alt=""
+      />
+    </div>
+    <p class="name">Elaborado por:</p>
+    <p class="name">Manuel Eduardo Santiago Feria</p>
+
+    <mat-divider></mat-divider>
+    <br />
+
+    <button mat-button class="componentes" [matMenuTriggerFor]="menu">
+      Componentes Disponibles
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <h1>Bienvenidos</h1>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+```
+```css
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    background-color: #FFA500 !important;
+    color: white;
+}
+
+.example-container {
+    width: auto;
+    height: 900px;
+    margin: 10px;
+    background: #eee;
+}
+
+.componentes {
+    background-color: white;
+    color: black;
+    border: 1px solid #ddd;
+}
+
+mat-sidenav {
+    width: 210px;
+    background-color: #FFA500;
+    color: black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.name {
+    margin-top: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.designation {
+    margin-top: 2px;
+}
+
+.avatar {
+    width: 100px;
+    height: auto;
+    border-radius: 40%;
+}
+
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+}
+mat-divider {
+    border-color:white; 
+    opacity: 1; 
+}
+
+.menuss{
+    color: #ddd;
+}
+```
+
+
+## 6.-Configuracion de rutas
 
 Ingresaremos a `app.routes.ts` y defineremos que componete abriremos y que aparecera en el URL, en esta parte identificaremos una ruta por defecto cada vez que abramos nuestra pagina web.
 
@@ -273,6 +407,9 @@ export const routes: Routes = [
     {path:'dashboard',component:DashboardComponent}
 ];
 ```
+
+
+
 
 
 
