@@ -258,7 +258,7 @@ mat-tab-group {
 }
 ```
 
-##5.- Generacion de un Dashboard
+## 5.- Generacion de un Dashboard
 Esta parte es a tu gusto en mi caso ocupe Material para desarrollarlo dado que es lo que estamos ocupando.
 
 
