@@ -1,268 +1,278 @@
-## 1.-Creacion del Proyecto
+## 1.-Creacion del Login
+En base con el anteriro trabajo realizado que fue el de listar desde una API lo acompletaremos con este que sera un login que valide desde la API de usuarios
 
-Abrimos una terminal o consola y ejecutamos el siguiente comando para crear un nuevo
-proyecto en Angular:
+Abrimos una terminal y crearemos los componentes necesarios 
 
 ```bash
-ng new nombreDelProyecto
+ng g c auth/login
 ```
 
-Entramos a la carpeta con el comando
 ```bash
-cd nombreDelProyecto
-```
-Despues configuras las opciones del proyecto a tus necesidades desde colores, animaciones, renderizacion , etc. (Por lo general aceptas todo pero no esta de mas leer).
-
-Agregaremos Material Design a nuestro proyecto con el comando
-```bash
-ng add @angular/material
+ng g c pages/dashboard
 ```
 
-Inicializaremos el servidor
+Inicializaremos el servicio
 ```bash
 ng serve
 ```
 
-## 2.-Crear el Servicio para Consumir la API
+## 2.-Crear el Html del Login/Register
 
-Generaremos un servicio que se encargará de consumir la API. En la
-terminal, escribiremos:
+Nos iremos al archivo `src/app/auth/login.html` para generar la vista que vera el usaurio al entrar a nuestra pagina el cuale esta basado en Material.
+Lo que se hace basicamente es traer los componetes ya hechos de Material, pero lo que si se debe de tener mucha consideracion en la parte de [(ngModel)] y el name dado que esto nos va permitir conectar con el .ts y darle la funcionalidad.
 
-```bash
-ng generate service services/user
+```html
+<div class="center-content">
+  <div class="avatar-container">
+    <img
+      class="avatar mat-elevation-z8"
+      src="https://universidadesdemexico.mx/logos/original/logo-instituto-tecnologico-de-oaxaca.webp"
+      alt=""
+    />
+  </div>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title style="align-items: center;">Login/Registro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <!-- Login Tab -->
+        <mat-tab label="Login">
+          <mat-form-field class="example-full-width">
+            <mat-label>Correo</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Email"
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Contraseña</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Password"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+          <button mat-button color="primary" class="btn-full" (click)="iniciarPagina()">Login</button>
+        </mat-tab>
+
+        <!-- Register Tab -->
+        <mat-tab label="Registro">
+          <mat-form-field class="example-full-width">
+            <mat-label>Correo</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Email"
+              [(ngModel)]="remail"
+              name="remail"
+              required
+            />
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Contraseña</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Password"
+              [(ngModel)]="rpassword"
+              name="rpassword"
+              required
+            />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Confrima tu Contraseña</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Confirm Password"
+              [(ngModel)]="rconfirmPassword"
+              name="rconfirmPassword"
+              required
+            />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+          <button mat-button color="primary" class="btn-full" (click)="iniciarPagina()">Registrarse</button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>
+
 ```
-Despues nos iremos al archivo src/app/services/user.service.ts para configurar el API que estaremos usando de la siguiente forma.
+
+## 3.-Generar la Funcionalidad del Login/Register
+
+Para darle funcionalidad ingresaremos a `src/app/auth/login.html` en el cual solo importamos lo que ocupamos en el HTML y mandaremos a llamar a `Router` quien nos va a ayudar a movernos entre las diferentes paginas de nuestro proyecto, llamamos a `MatSnackBar` para las alertas si ingreso mal algo el usaurio y tambien a nuestro servicio que creamos en el proyecto pasado dado que los necesitamos apra generar nuestro contructor.
 
 ```typescript
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class UserService {
-
-  private apiUrl = 'https://api.escuelajs.co/api/v1/users';  // <-Aqui va la url de tu API
-  constructor(private http: HttpClient) { }
-  getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
-}
-```
-
-## 3.-Configurar HttpClient
-
-Para poder realizar las consultas necesitaremos implementar HttpClient en el archivo src/app/app.config.ts el cual se configurara de la siguiente forma.
-
-```typescript
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-    provideClientHydration(),
-    provideHttpClient(withFetch()), //<- Aquí se añade provideHttpClient con withFetch()
-    provideAnimationsAsync()
-  ]
-};
-```
-## 4.-Crear el Componente de la Tabla de Usuarios
-Para crear nuestro componente el cual nos servira para ver el contenido de nuestra API 
-```bash
-ng generate component components/user-list
-```
-
-Tras generar nuestro componente ingresaremos al archivo 
-src/app/components/user-list.component.ts al cual se le dara el sigiente formato
-
-```typescript
-import { AfterViewInit, Component, OnInit, viewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { UserService } from '../../services/user.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common'; 
+import { UserService } from '../../services/user.service';  // Importar el servicio
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'app-login',
   standalone: true,
   imports: [
-    MatPaginator,MatSort,
-    MatTableModule,MatFormFieldModule,
-    MatInputModule,
-    MatToolbarModule,
+    CommonModule,
     MatCardModule,
+    MatTabsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    MatSnackBarModule
   ],
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class UserListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'password' , 'role', 'avatar']; // <- Aqui agregaremos lo que quieras sacar de tu API,
-   //asi que ve que es lo que te retorna tu API
-  dataSource = new MatTableDataSource<any>([]); // Inicializa con un arreglo vacío
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
+  remail: string = '';
+  rpassword: string = '';
+  rconfirmPassword: string = '';
 
-  readonly paginator = viewChild.required(MatPaginator);
-  readonly sort = viewChild.required(MatSort);
+  constructor(private router: Router, private userService: UserService, private snackBar: MatSnackBar) {}
 
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    // Llama al servicio para obtener los usuarios y asignarlos al dataSource
-    this.userService.getUsers().subscribe((data: any[]) => {
-      this.dataSource.data = data; // Asigna los datos obtenidos a dataSource
-    });
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator();
-    this.dataSource.sort = this.sort();
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  iniciarPagina() {
+    // Validación de los campos de correo y contraseña
+    if (this.email && this.password) {
+      // Llamada al servicio para obtener los usuarios
+      this.userService.getUsers().subscribe(
+        (users) => {
+          // Buscar el usuario que coincida con el correo y la contraseña
+          const user = users.find(u => u.email === this.email && u.password === this.password);
+          
+          if (user) {
+            // Si el usuario es válido, navegar al dashboard
+            this.router.navigate(['/dashboard']);
+          } else {
+            // Si no se encuentra un usuario que coincida, mostrar mensaje de error
+            this.snackBar.open('Credenciales incorrectas', 'Cerrar', { duration: 3000 });
+          }
+        },
+        (error) => {
+          // Manejo de error en caso de que falle la llamada a la API
+          console.error('Error al obtener los usuarios', error);
+          this.snackBar.open('Error al obtener los usuarios', 'Cerrar', { duration: 3000 });
+        }
+      );
+    } else {
+      // Si no se completan los campos
+      this.snackBar.open('Por favor complete los campos', 'Cerrar', { duration: 3000 });
     }
   }
 }
+
+```
+## 4.-Darlo un diseño agradable a nuestro Login/Register
+Ingresaremos a `src/app/auth/login.css` y le daremos a cada componete su diseño agradable y bonito como nostros queramos
+
+```css
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(45deg, #6a1b9a, #8e24aa, #d81b60);
+  font-family: 'Roboto', sans-serif;
+  padding: 20px;
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.example-card {
+  width: 400px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #6a1b9a;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.custom-tab-group {
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+mat-card-header {
+  background-color: #f3e5f5;
+  padding: 16px;
+  border-bottom: 1px solid #e1bee7;
+}
+
+mat-tab-group {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
 ```
 
-## 5.-Creación de la Vista para Mostrar los Datos en una Tabla
+## 5.-Configuracion de rutas
 
-Ingresaremos al archivo src/app/components/user-list/user-list.component.html y le faremos el siguiente formato este es la parte visible para el suario, en el archivo .ts solo se recuperaron los datos y agregamos los componentes de Material  para su psoteriro uso en el .html en el cual le vamos a dar una vista bonita dado que estos datos se encuentra en un arreglo y no en una tabla de la siguiente forma.
+Ingresaremos a `app.routes.ts` y defineremos que componete abriremos y que aparecera en el URL, en esta parte identificaremos una ruta por defecto cada vez que abramos nuestra pagina web.
 
-```html
-<div class="container">
-  <mat-card class="user-card">
-    <!-- Encabezado del Card -->
-    <mat-toolbar color="primary">
-      <span class="toolbar-title">User List</span>
-    </mat-toolbar>
+```typescript
+import { Routes } from '@angular/router';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LoginComponent } from './auth/login/login.component';
 
-    <!-- Input para el filtro -->
-    <div class="filter-container">
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Filter</mat-label>
-        <input matInput (input)="applyFilter($event)" placeholder="Search Users" />
-      </mat-form-field>
-    </div>
-
-    <!-- Tabla de Usuarios -->
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 user-table">
-      <!-- Columna de ID -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let user">{{ user.id }}</td>
-      </ng-container>
-
-      <!-- Columna de Nombre -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
-      </ng-container>
-
-      <!-- Columna de Email -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
-      </ng-container>
-
-      <!-- Columna de Contraseña -->
-      <ng-container matColumnDef="password">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Password</th>
-        <td mat-cell *matCellDef="let user"> {{ user.password }} </td>
-      </ng-container>
-
-      <!-- Columna de Rol -->
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
-        <td mat-cell *matCellDef="let user">{{ user.role }}</td>
-      </ng-container>
-
-      <!-- Columna de Avatar -->
-      <ng-container matColumnDef="avatar">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Avatar</th>
-        <td mat-cell *matCellDef="let user">{{ user.avatar }}</td>
-      </ng-container>
-
-      <!-- Filas y Encabezados -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <!-- Paginador -->
-    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page"
-      showFirstLastButtons></mat-paginator>
-  </mat-card>
-</div>
+export const routes: Routes = [
+    {path:'',redirectTo:'/login', pathMatch:'full'},
+    {path:'login',component:LoginComponent},
+    {path:'dashboard',component:DashboardComponent}
+];
 ```
-
-## Integrar el Componente en la Aplicación
-Nos iremos al archivo  src/app/app.component.ts y agregaremos el componente para poderlo usar en el archivo src/app/app.component.html con el sigueinte formato 
-
-```html
-<app-user-list></app-user-list>
-<router-outlet></router-outlet>
-```
-
-## Resultados
-Este seria el resultado final de como se implemento la vista con Material, utilizando los componentes de paginacion y filtro
-![image](https://github.com/user-attachments/assets/098e860f-d8c9-4e52-9381-7558036283f6)
-
-
-## Preguntas
-
-
-**1.- ¿Qué hace el método getUsers en este servicio?**
-R=Lo que realiza es una solicitud en formato HTTP GET para poder obtener datos desde la API externa y devolver los resultados.
-
-------------
-**2.- ¿Por qué es necesario importar HttpClientModule?**
-R=Este módulo ya no es necesario en angular 18, pero lo que hacia era realizar peticiones de GET, POST, PUT y DELETE y esto se vio remplazado por la importación de HttpCliente que hace lo mismo, pero adopta un enfoque mas moderno y uso solo de componentes.
-
-------------
-**3.- ¿Qué función cumple el método ngOnInit en el componente UserListComponent?**
-R=Esto sirve para realizar la carga inicial de datos al momento que se crea el componente.
-
-------------
-
-**4.-¿Para qué sirve el bucle *ngFor en Angular? En el ejemplo**
-R=Es el encargado de repetir las acciones en cada arreglo y crea una copia de ese bloque 
-
-------------
-**5. ¿Qué ventajas tiene el uso de servicios en Angular para el consumo de APIs?**
-- Nos permite reutilizar código
-- Código más sencillo
-- Facilita la implementación de pruebas
-- Mas fácil de mantener
-- Optimiza el rendimiento
-
-------------
-**6. ¿Por qué es importante separar la lógica de negocio de la lógica de presentación?**
-- Mejora el mantenimiento 
-- Escalabilidad
-
-------------
-**7 ¿Qué otros tipos de datos o APIs podrías integrar en un proyecto como este?**
-- Autentificación y automatización 
-- Permite tomar datos de terceros 
-- Implementar notificaciones
-- Almacenar datos
-- Datos en tiempo
-
-
 
 
 
