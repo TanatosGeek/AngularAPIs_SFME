@@ -2,14 +2,16 @@
   <mat-card class="user-card">
     <!-- Encabezado del Card -->
     <mat-toolbar color="primary">
-      <span class="toolbar-title">User List</span>
+      <span class="toolbar-title">Lista de Usuarios</span>
     </mat-toolbar>
+
+    <br>
 
     <!-- Input para el filtro -->
     <div class="filter-container">
       <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Filter</mat-label>
-        <input matInput (input)="applyFilter($event)" placeholder="Search Users" />
+        <mat-label>Filtro</mat-label>
+        <input matInput (input)="applyFilter($event)" placeholder="Buscar Usuarios" />
       </mat-form-field>
     </div>
 
