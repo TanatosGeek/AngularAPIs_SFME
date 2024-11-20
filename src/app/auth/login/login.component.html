@@ -6,48 +6,85 @@
       alt=""
     />
   </div>
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title style="align-items: center;">Login/Register</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-tab-group>
-          <mat-tab label="Login">
-            <mat-form-field class="example-full-width">
-              <mat-label>Email</mat-label>
-              <input type="email" matInput placeholder="Email" [(ngModel)]="email" required>
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-  
-            <mat-form-field class="example-full-width">
-              <mat-label>Password</mat-label>
-              <input type="password" matInput placeholder="Password" [(ngModel)]="password" required>
-              <mat-icon matSuffix>vpn_key</mat-icon>
-            </mat-form-field>
-            <button mat-button color="primary" (click)="iniciarPagina()">Login</button>
-          </mat-tab>
-          <mat-tab label="Register">
-            <mat-form-field class="example-full-width">
-              <mat-label>Email</mat-label>
-              <input type="email" matInput placeholder="Email" [(ngModel)]="remail" required>
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-  
-            <mat-form-field class="example-full-width">
-              <mat-label>Password</mat-label>
-              <input type="password" matInput placeholder="Password" [(ngModel)]="rpassword" required>
-              <mat-icon matSuffix>vpn_key</mat-icon>
-            </mat-form-field>
-  
-            <mat-form-field class="example-full-width">
-              <mat-label>Confirm Password</mat-label>
-              <input type="password" matInput placeholder="Confirm Password" [(ngModel)]="rconfirmPassword" required>
-              <mat-icon matSuffix>vpn_key</mat-icon>
-            </mat-form-field>
-            <button mat-button color="primary" (click)="iniciarPagina()">Register</button>
-          </mat-tab>
-        </mat-tab-group>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title style="align-items: center;">Login/Registro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <!-- Login Tab -->
+        <mat-tab label="Login">
+          <mat-form-field class="example-full-width">
+            <mat-label>Correo</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Email"
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Contraseña</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Password"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+          <button mat-button color="primary" class="btn-full" (click)="iniciarPagina()">Login</button>
+        </mat-tab>
+
+        <!-- Register Tab -->
+        <mat-tab label="Registro">
+          <mat-form-field class="example-full-width">
+            <mat-label>Correo</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Email"
+              [(ngModel)]="remail"
+              name="remail"
+              required
+            />
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Contraseña</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Password"
+              [(ngModel)]="rpassword"
+              name="rpassword"
+              required
+            />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Confrima tu Contraseña</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Confirm Password"
+              [(ngModel)]="rconfirmPassword"
+              name="rconfirmPassword"
+              required
+            />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+          <button mat-button color="primary" class="btn-full" (click)="iniciarPagina()">Registrarse</button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>
